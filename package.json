@@ -12,10 +12,7 @@
     "node-fetch": "^3.3.2"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "csv-parse": "^5.6.0",
->>>>>>> 26a2bc00650dfb0a5f24c2cd1b40fbffef5e0ad0
     "dropbox": "^10.34.0",
     "firebase": "^11.2.0",
     "firebase-admin": "^13.0.2"
