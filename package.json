@@ -15,6 +15,7 @@
     "csv-parse": "^5.6.0",
     "dropbox": "^10.34.0",
     "firebase": "^11.2.0",
-    "firebase-admin": "^13.0.2"
+    "firebase-admin": "^13.0.2",
+    "netlify-plugin-bundle-env": "^0.6.2"
   }
 }
