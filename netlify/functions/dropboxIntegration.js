@@ -2,9 +2,11 @@ const { Dropbox } = require('dropbox');
 
 // Common CORS headers to include in all responses
 const headers = {
-  "Access-Control-Allow-Origin": "*", // Replace "*" with your domain if you want to restrict access
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+  'Access-Control-Allow-Origin': origin || '*',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, Origin, Authorization',
+  'Access-Control-Allow-Methods': 'GET, PUT, POST, OPTIONS',
+  'Access-Control-Max-Age': '86400',
+  'Content-Type': 'application/json'
 };
 
 exports.handler = async (event, context) => {
