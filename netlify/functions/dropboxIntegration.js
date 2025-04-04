@@ -55,7 +55,10 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ code: availableCode.code })
+      body: JSON.stringify({
+        code: availableCode.code,
+        eventDetails: event
+      })
     };
 
   } catch (error) {
