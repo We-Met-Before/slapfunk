@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
   }
 
   // Define the Dropbox file path
-  const filePath = '/discount_codes.json';
+  const filePath = '/Apps/MyApp/discount_codes.json';
   const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
 
   try {
