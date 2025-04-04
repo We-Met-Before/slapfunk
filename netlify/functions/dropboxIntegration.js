@@ -45,7 +45,7 @@ exports.handler = async (event, context) => {
     await dbx.filesUpload({
       path: filePath,
       contents: updatedContent,
-      mode: { ".tag": "overwrite" }
+      mode: "overwrite"
     });
 
     // Return the discount code
