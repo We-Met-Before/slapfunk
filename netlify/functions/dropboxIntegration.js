@@ -9,11 +9,10 @@ const headers = {
 
 exports.handler = async (event, context) => {
   // Handle preflight OPTIONS request
-  if (event.httpMethod === "OPTIONS") {
+  if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers,
-      body: ""
+      headers: getCorsHeaders(event.headers.origin)
     };
   }
 
