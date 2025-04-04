@@ -61,8 +61,7 @@ exports.handler = async (event, context) => {
       statusCode: 500,
       headers,
       body: JSON.stringify({
-        error: error.message,
-        accessToken: process.env.DROPBOX_ACCESS_TOKEN
+        error: error.message
       })
     };
   }
