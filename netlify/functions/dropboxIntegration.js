@@ -41,11 +41,14 @@ exports.handler = async (event, context) => {
     availableCode.status = "used";
     const updatedContent = JSON.stringify(discountData, null, 2);
 
+    // After downloading the file and parsing its content:
+    const rev = downloadResponse.result.rev;
+
     // Upload the updated file back to Dropbox (overwrite the existing file)
     await dbx.filesUpload({
       path: filePath,
       contents: updatedContent,
-      mode: "overwrite"
+      mode: { ".tag": "update", update: rev }
     });
 
     // Return the discount code
@@ -56,13 +59,11 @@ exports.handler = async (event, context) => {
     };
 
   } catch (error) {
-    console.error('Error processing discount code:', error);
+    console.error('Error processing discount code:', JSON.stringify(error, null, 2));
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({
-        error: error.message
-      })
+      body: JSON.stringify({ error: error.message, details: error.error_summary || error })
     };
   }
 };
