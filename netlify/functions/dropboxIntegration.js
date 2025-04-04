@@ -20,15 +20,27 @@ exports.handler = async (event, context) => {
   // Define the Dropbox file path
   const filePath = '/discount_codes.json';
   const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
+  let currentUserData = JSON.parse(event.body);
+
 
   try {
+    //check for user subscription
+    let currentUserSubscriptionName = currentUserData.payload.subscriptionName;
+    if (!currentUserSubscriptionName) {
+      return {
+        statusCode: 404,
+        headers,
+        body: JSON.stringify({ error: 'The user does not have an active subscription.' })
+      };
+    }
+
     // Download the discount codes file from Dropbox
     const downloadResponse = await dbx.filesDownload({ path: filePath });
     const fileContent = downloadResponse.result.fileBinary.toString('utf8');
     let discountData = JSON.parse(fileContent);
 
     // Look for the first available discount code
-    let availableCode = discountData.codes.find(item => item.status === "available");
+    let availableCode = discountData.codes.find(item => item.status === "available" && item.tier.toLowerCase() === currentUserSubscriptionName.toLowerCase());
     if (!availableCode) {
       return {
         statusCode: 404,
