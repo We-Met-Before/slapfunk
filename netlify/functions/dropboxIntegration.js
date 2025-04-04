@@ -17,6 +17,17 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // Extract the 'tier' parameter from query string
+  let currentUserData = JSON.parse(event.body);
+  const userTier = currentUserData.payload.subscriptionName;
+  if (!userTier) {
+    return {
+      statusCode: 400,
+      headers,
+      body: JSON.stringify({ error: 'Missing tier parameter' })
+    };
+  }
+
   // Define the Dropbox file path
   const filePath = '/discount_codes.json';
   const dbx = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
@@ -27,31 +38,35 @@ exports.handler = async (event, context) => {
     const fileContent = downloadResponse.result.fileBinary.toString('utf8');
     let discountData = JSON.parse(fileContent);
 
-    // Look for the first available discount code
-    let availableCode = discountData.codes.find(item => item.status === "available");
+    // Look for the first available discount code that matches the user's tier
+    let availableCode = discountData.codes.find(item =>
+      item.status === "available" &&
+      item.tier.toLowerCase() === userTier.toLowerCase()
+    );
+
     if (!availableCode) {
       return {
         statusCode: 404,
         headers,
-        body: JSON.stringify({ error: 'No available discount codes.' })
+        body: JSON.stringify({ error: `No available discount codes for tier: ${userTier}` })
       };
     }
 
-    // Mark the code as used
+    // Mark the found code as used
     availableCode.status = "used";
     const updatedContent = JSON.stringify(discountData, null, 2);
 
-    // After downloading the file and parsing its content:
+    // Get the file revision from the download response to use in the update mode
     const rev = downloadResponse.result.rev;
 
-    // Upload the updated file back to Dropbox (overwrite the existing file)
+    // Upload the updated file back to Dropbox (update mode with current revision)
     await dbx.filesUpload({
       path: filePath,
       contents: updatedContent,
       mode: { ".tag": "update", update: rev }
     });
 
-    // Return the discount code
+    // Return the discount code to the client
     return {
       statusCode: 200,
       headers,
