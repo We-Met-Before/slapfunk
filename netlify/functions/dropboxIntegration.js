@@ -26,7 +26,10 @@ exports.handler = async (event, context) => {
   try {
     //check for user subscription
     let currentUserSubscriptionName = currentUserData.payload.subscriptionName;
-    if (!currentUserSubscriptionName) {
+    let eventNameParam = currentUserData.payload.eventName;
+    const eventName = eventNameParam.toLowerCase();
+
+    if (!currentUserSubscriptionName || !eventName) {
       return {
         statusCode: 404,
         headers,
@@ -39,8 +42,10 @@ exports.handler = async (event, context) => {
     const fileContent = downloadResponse.result.fileBinary.toString('utf8');
     let discountData = JSON.parse(fileContent);
 
+    const codesList = discountData.codes[eventName];
+
     // Look for the first available discount code
-    let availableCode = discountData.codes.find(item => item.status === "available" && item.tier.toLowerCase() === currentUserSubscriptionName.toLowerCase());
+    let availableCode = codesList.find(item => item.status === "available" && item.tier.toLowerCase() === currentUserSubscriptionName.toLowerCase());
     if (!availableCode) {
       return {
         statusCode: 404,
