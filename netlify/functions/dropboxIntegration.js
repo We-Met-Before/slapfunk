@@ -26,7 +26,7 @@ exports.handler = async (event, context) => {
   try {
     //check for user subscription
     let currentUserSubscriptionName = currentUserData.payload.subscriptionName;
-    let eventNameParam = currentUserData.payload.eventName;
+    let eventNameParam = currentUserData.payload.itemId;
     const eventName = eventNameParam.toLowerCase();
 
     if (!currentUserSubscriptionName || !eventName) {
