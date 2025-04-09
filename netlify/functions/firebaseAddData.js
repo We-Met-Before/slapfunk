@@ -429,7 +429,7 @@ exports.handler = async (event) => {
         // -----------------------------------------------------------------
         // Processing for Eventix Events
         // -----------------------------------------------------------------
-        if (currentUserData.payload.isEventixEvent === 'True') {
+        if (currentUserData.payload.isEventixEvent === 'True' || currentUserData.payload.isEventixEvent == null) {
             // Here we check if the token is valid for Eventix and then call generateCouponCode accordingly.
             let tokenIsValid = await validateToken(eventixTokens);
             if (validUserToGenerateCode && tokenIsValid) {
