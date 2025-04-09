@@ -43,44 +43,44 @@ function getCorsHeaders(origin) {
 
 // 1. Build the Dropbox authorization URL
 //    Redirect your user to this URL so they can authorize your app.
-function getDropboxAuthUrl() {
-    const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
-    const redirectUri = process.env.DROPBOX_REDIRECT_URI; // e.g., "https://your-domain.com/dropbox-auth-callback"
-    const authUrl = `https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=${dropboxClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&token_access_type=offline`;
-    return authUrl;
-}
+// function getDropboxAuthUrl() {
+//     const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
+//     const redirectUri = process.env.DROPBOX_REDIRECT_URI; // e.g., "https://your-domain.com/dropbox-auth-callback"
+//     const authUrl = `https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=${dropboxClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&token_access_type=offline`;
+//     return authUrl;
+// }
 
 // 2. Handle Dropbox callback: Exchange the authorization code for tokens
 //    This endpoint should be called by Dropbox via the redirect URI after the user authorizes.
-async function handleDropboxAuthCallback(authCode) {
-    const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
-    const dropboxClientSecret = process.env.DROPBOX_CLIENT_SECRET;
-    const redirectUri = process.env.DROPBOX_REDIRECT_URI;
-    const tokenUrl = "https://api.dropbox.com/oauth2/token";
+// async function handleDropboxAuthCallback(authCode) {
+//     const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
+//     const dropboxClientSecret = process.env.DROPBOX_CLIENT_SECRET;
+//     const redirectUri = process.env.DROPBOX_REDIRECT_URI;
+//     const tokenUrl = "https://api.dropbox.com/oauth2/token";
 
-    const params = new URLSearchParams();
-    params.append("code", authCode);
-    params.append("grant_type", "authorization_code");
-    params.append("client_id", dropboxClientId);
-    params.append("client_secret", dropboxClientSecret);
-    params.append("redirect_uri", redirectUri);
+//     const params = new URLSearchParams();
+//     params.append("code", authCode);
+//     params.append("grant_type", "authorization_code");
+//     params.append("client_id", dropboxClientId);
+//     params.append("client_secret", dropboxClientSecret);
+//     params.append("redirect_uri", redirectUri);
 
-    const response = await fetch(tokenUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params.toString()
-    });
-    const tokenData = await response.json();
+//     const response = await fetch(tokenUrl, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+//         body: params.toString()
+//     });
+//     const tokenData = await response.json();
 
-    // Save tokenData in Firestore – here we use a fixed document ID "appToken" in the "dropboxTokens" collection.
-    await db.collection("dropboxTokens").doc("appToken").set({
-        access_token: tokenData.access_token,
-        refresh_token: tokenData.refresh_token,
-        // Save the expiry time (current time + expires_in ms)
-        expiryTime: Date.now() + (tokenData.expires_in * 1000)
-    });
-    return tokenData;
-}
+//     // Save tokenData in Firestore – here we use a fixed document ID "appToken" in the "dropboxTokens" collection.
+//     await db.collection("dropboxTokens").doc("appToken").set({
+//         access_token: tokenData.access_token,
+//         refresh_token: tokenData.refresh_token,
+//         // Save the expiry time (current time + expires_in ms)
+//         expiryTime: Date.now() + (tokenData.expires_in * 1000)
+//     });
+//     return tokenData;
+// }
 
 // 3. Refresh the Dropbox access token using the refresh token
 async function refreshDropboxAccessToken(refreshToken) {
