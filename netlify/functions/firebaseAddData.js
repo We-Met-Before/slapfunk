@@ -350,18 +350,12 @@ exports.handler = async (event) => {
                         message: 'Hey, here is your Discount Code!'
                     }),
                 }
-            }
-            else if (!validUserToGenerateCode) {
-                //display alert - user already generated coupon code
+            } else {
                 return {
-                    statusCode: 200,
-                    headers: getCorsHeaders(event.headers.origin),
-                    body: JSON.stringify({
-                        couponCode: '',
-                        message: 'Sorry, you already generated a Discount Code!'
-                    }),
+                    respone: response
                 }
             }
+
         }
 
 
