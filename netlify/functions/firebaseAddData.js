@@ -1,10 +1,87 @@
 const { messaging } = require("firebase-admin");
 const { db } = require("./firebase");
+const { Dropbox } = require('dropbox');
+
 
 const clientId = process.env.EVENTIX_CLIENT_ID;
 const clientSecret = process.env.EVENTIX_CLIENT_SECRET;
 const code = process.env.EVENTIX_CODE_KEY;
 const companyId = process.env.EVENTIX_COMPANY_ID;
+const dropboxToken = process.env.DROPBOX_ACCESS_TOKEN
+
+async function generateCouponCodeDropbox(currentUserData, currentUser, itemId) {
+    try {
+        const filePath = '/discount_codes.json';
+        const dbx = new Dropbox({ accessToken: dropboxToken });
+
+        //check for user subscription
+        let currentUserSubscriptionName = currentUserData.payload.subscriptionName;
+        const eventName = itemId.toLowerCase();
+
+        if (!currentUserSubscriptionName || !eventName) {
+            return {
+                statusCode: 404,
+                body: JSON.stringify({ error: 'The user does not have an active subscription.' })
+            };
+        }
+
+        // Download the discount codes file from Dropbox
+        const downloadResponse = await dbx.filesDownload({ path: filePath });
+        const fileContent = downloadResponse.result.fileBinary.toString('utf8');
+        let discountData = JSON.parse(fileContent);
+
+        const codesList = discountData.codes[eventName];
+
+        // Look for the first available discount code
+        let availableCode = codesList.find(item => item.status === "available" && item.tier.toLowerCase() === currentUserSubscriptionName.toLowerCase());
+        if (!availableCode) {
+            return {
+                statusCode: 404,
+                body: JSON.stringify({ error: 'No available discount codes.' })
+            };
+        }
+
+        // Mark the code as used
+        availableCode.status = "used";
+        const updatedContent = JSON.stringify(discountData, null, 2);
+
+        // After downloading the file and parsing its content:
+        const rev = downloadResponse.result.rev;
+
+        // Upload the updated file back to Dropbox (overwrite the existing file)
+        await dbx.filesUpload({
+            path: filePath,
+            contents: updatedContent,
+            mode: { ".tag": "update", update: rev }
+        });
+
+        const id = currentUser[0].id;
+        currentUser[0].eventListDiscounted.push(itemId);
+        const updateObj = {
+            generatedCouponCode: true,
+            eventListDiscounted: currentUser[0].eventListDiscounted
+        };
+
+        if (id && updateObj) {
+            await db.collection("users").doc(id).update(updateObj);
+        }
+
+        // Return the discount code
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                code: availableCode.code
+            })
+        };
+    }
+    catch (error) {
+        console.error('Error processing discount code:', JSON.stringify(error, null, 2));
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: error.message, details: error.error_summary || error })
+        };
+    }
+}
 
 async function generateCouponCode(couponId, eventixToken, generatedCode, currentUser, itemId) {
     try {
@@ -155,12 +232,6 @@ async function validateUserDiscountCode(currentUserEmail, itemId) {
     let currentUserDataSnapshot = await db.collection('users').where('emailAddress', '==', currentUserEmail).get();
     let currentUserData = currentUserDataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-    // if (currentUserData.length && currentUserData[0].generatedCouponCode) {
-    //     return false;
-    // } else if (currentUserData.length && !currentUserData[0].generatedCouponCode) {
-    //     return true;
-    // }
-
     if (currentUserData.length && currentUserData[0].eventListDiscounted.includes(itemId)) {
         return false;
     } else if (currentUserData.length && !currentUserData[0].eventListDiscounted.includes(itemId)) {
@@ -224,38 +295,63 @@ exports.handler = async (event) => {
         let tokenIsValid = await validateToken(eventixTokens);
         let validUserToGenerateCode = await validateUserDiscountCode(currentUserData.payload.emailAddress.emailAddress, currentUserData.payload.itemId);
 
-        if (currentUserData.payload) {
-            if (validUserToGenerateCode && tokenIsValid) {
-                let generatedCouponCode = generateCode(currentUserSubscriptionName)
-                let response = await generateCouponCode(currentUserSubscriptionId, eventixTokens, generatedCouponCode, currentUser, currentUserData.payload.itemId);
+        if (currentUserData.payload.isEventixEvent === 'True') {
+            if (currentUserData.payload) {
+                if (validUserToGenerateCode && tokenIsValid) {
+                    let generatedCouponCode = generateCode(currentUserSubscriptionName)
+                    let response = await generateCouponCode(currentUserSubscriptionId, eventixTokens, generatedCouponCode, currentUser, currentUserData.payload.itemId);
 
-                if (generateCouponCode && response.statusCode == 200) {
+                    if (generateCouponCode && response.statusCode == 200) {
+                        return {
+                            statusCode: 200,
+                            headers: getCorsHeaders(event.headers.origin),
+                            body: JSON.stringify({
+                                couponCode: generatedCouponCode,
+                                message: 'Hey, here is your Discount Code!'
+                            }),
+                        }
+                    }
+
+                } else if (validUserToGenerateCode && !tokenIsValid) {
+                    let refreshTokenResponse = await refreshAccessToken(eventixTokens);
+                    let generatedCouponCode = generateCode(currentUserSubscriptionName)
+                    let response = await generateCouponCode(currentUserSubscriptionId, eventixTokens, generatedCouponCode, currentUser, currentUserData.payload.itemId);
+
+                    if (generateCouponCode && response.statusCode == 200) {
+                        return {
+                            statusCode: 200,
+                            headers: getCorsHeaders(event.headers.origin),
+                            body: JSON.stringify({
+                                couponCode: generatedCouponCode,
+                                message: 'Hey, here is your Discount Code!'
+                            }),
+                        }
+                    }
+                } else if (!validUserToGenerateCode) {
+                    //display alert - user already generated coupon code
                     return {
                         statusCode: 200,
                         headers: getCorsHeaders(event.headers.origin),
                         body: JSON.stringify({
-                            couponCode: generatedCouponCode,
-                            message: 'Hey, here is your Discount Code!'
+                            couponCode: '',
+                            message: 'Sorry, you already generated a Discount Code!'
                         }),
                     }
                 }
-
-            } else if (validUserToGenerateCode && !tokenIsValid) {
-                let refreshTokenResponse = await refreshAccessToken(eventixTokens);
-                let generatedCouponCode = generateCode(currentUserSubscriptionName)
-                let response = await generateCouponCode(currentUserSubscriptionId, eventixTokens, generatedCouponCode, currentUser, currentUserData.payload.itemId);
-
-                if (generateCouponCode && response.statusCode == 200) {
-                    return {
-                        statusCode: 200,
-                        headers: getCorsHeaders(event.headers.origin),
-                        body: JSON.stringify({
-                            couponCode: generatedCouponCode,
-                            message: 'Hey, here is your Discount Code!'
-                        }),
-                    }
+            }
+        } else {
+            let response = generateCouponCodeDropbox(currentUserData, currentUser, currentUserData.payload.itemId);
+            if (response.statusCode == 200) {
+                return {
+                    statusCode: 200,
+                    headers: getCorsHeaders(event.headers.origin),
+                    body: JSON.stringify({
+                        couponCode: JSON.parse(response.body).code,
+                        message: 'Hey, here is your Discount Code!'
+                    }),
                 }
-            } else if (!validUserToGenerateCode) {
+            }
+            else if (!validUserToGenerateCode) {
                 //display alert - user already generated coupon code
                 return {
                     statusCode: 200,
@@ -267,6 +363,8 @@ exports.handler = async (event) => {
                 }
             }
         }
+
+
     } catch (error) {
         return {
             statusCode: 500,
