@@ -1,229 +1,16 @@
-process.env["ALLUSERSPROFILE"] = "C:\\ProgramData";process.env["APPDATA"] = "C:\\Users\\bogda\\AppData\\Roaming";process.env["BRANCH"] = "main";process.env["BUILD_ID"] = "0";process.env["CACHED_COMMIT_REF"] = "f0f0f8c28ce66832c2c7be89c7299e9f56b26ebd";process.env["ChocolateyInstall"] = "C:\\ProgramData\\chocolatey";process.env["ChocolateyLastPathUpdate"] = "133713025006300427";process.env["CHROME_CRASHPAD_PIPE_NAME"] = "\\\\.\\pipe\\crashpad_28376_YZQVRHAEMTSVICBN";process.env["COLORTERM"] = "truecolor";process.env["COMMIT_REF"] = "4416dc25d79447f8f73053202d520f82bff8781d";process.env["CommonProgramFiles"] = "C:\\Program Files\\Common Files";process.env["CommonProgramFiles(x86)"] = "C:\\Program Files (x86)\\Common Files";process.env["CommonProgramW6432"] = "C:\\Program Files\\Common Files";process.env["COMPUTERNAME"] = "BODO";process.env["ComSpec"] = "C:\\WINDOWS\\system32\\cmd.exe";process.env["CONTEXT"] = "production";process.env["DEPLOY_ID"] = "0";process.env["DEPLOY_PRIME_URL"] = "https://main--site-name.netlify.app";process.env["DEPLOY_URL"] = "https://0--site-name.netlify.app";process.env["DriverData"] = "C:\\Windows\\System32\\Drivers\\DriverData";process.env["ediabas_config_dir"] = "C:\\EDIABAS\\BIN\\";process.env["EFC_27176_1262719628"] = "1";process.env["EFC_27176_1592913036"] = "1";process.env["EFC_27176_2283032206"] = "1";process.env["EFC_27176_2775293581"] = "1";process.env["EFC_27176_3789132940"] = "1";process.env["FORCE_COLOR"] = "1";process.env["FPS_BROWSER_APP_PROFILE_STRING"] = "Internet Explorer";process.env["FPS_BROWSER_USER_PROFILE_STRING"] = "Default";process.env["GATSBY_TELEMETRY_DISABLED"] = "1";process.env["HEAD"] = "main";process.env["HOME"] = "C:\\Users\\bogda";process.env["HOMEDRIVE"] = "C:";process.env["HOMEPATH"] = "\\Users\\bogda";process.env["ISPIDATA"] = "C:\\ProgramData\\";process.env["KMP_DUPLICATE_LIB_OK"] = "TRUE";process.env["LANG"] = "en_US.UTF-8";process.env["LANGUAGE"] = "en_US:en";process.env["LC_ALL"] = "en_US.UTF-8";process.env["LOCALAPPDATA"] = "C:\\Users\\bogda\\AppData\\Local";process.env["LOGONSERVER"] = "\\\\BODO";process.env["NETLIFY_CLI_VERSION"] = "22.3.0";process.env["NETLIFY_LOCAL"] = "true";process.env["NEXT_TELEMETRY_DISABLED"] = "1";process.env["NUMBER_OF_PROCESSORS"] = "16";process.env["OneDrive"] = "C:\\Users\\bogda\\OneDrive";process.env["ORIGINAL_XDG_CURRENT_DESKTOP"] = "undefined";process.env["OS"] = "Windows_NT";process.env["OTEL_SERVICE_NAME"] = "netlify-plugin-bundle-env";process.env["OTEL_SERVICE_VERSION"] = "0.6.2";process.env["Path"] = "E:\\Slap\\slapfunk\\node_modules\\netlify-plugin-bundle-env\\dist\\node_modules\\.bin;E:\\Slap\\slapfunk\\node_modules\\netlify-plugin-bundle-env\\node_modules\\.bin;E:\\Slap\\slapfunk\\node_modules\\node_modules\\.bin;E:\\Slap\\slapfunk\\node_modules\\.bin;E:\\Slap\\node_modules\\.bin;E:\\node_modules\\.bin;C:\\Program Files\\nodejs;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\java8path;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\Python312\\Scripts\\;C:\\Python312\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Program Files\\nodejs\\;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\ediabas\\bin\\;c:\\ediabas\\bin;C:\\Program Files\\dotnet\\;C:\\xampp\\php;C:\\composer;C:\\Program Files\\PuTTY\\;E:\\Git\\cmd;C:\\Users\\bogda\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\bogda\\AppData\\Roaming\\npm;C:\\Users\\bogda\\AppData\\Local\\Muse Hub\\lib;C:\\Users\\bogda\\AppData\\Roaming\\Composer\\vendor\\bin";process.env["PATHEXT"] = ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL";process.env["PROCESSOR_ARCHITECTURE"] = "AMD64";process.env["PROCESSOR_IDENTIFIER"] = "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD";process.env["PROCESSOR_LEVEL"] = "23";process.env["PROCESSOR_REVISION"] = "6001";process.env["ProgramData"] = "C:\\ProgramData";process.env["ProgramFiles"] = "C:\\Program Files";process.env["ProgramFiles(x86)"] = "C:\\Program Files (x86)";process.env["ProgramW6432"] = "C:\\Program Files";process.env["PSModulePath"] = "C:\\Users\\bogda\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules";process.env["PUBLIC"] = "C:\\Users\\Public";process.env["PULL_REQUEST"] = "false";process.env["SESSIONNAME"] = "Console";process.env["SystemDrive"] = "C:";process.env["SystemRoot"] = "C:\\WINDOWS";process.env["TEMP"] = "C:\\Users\\bogda\\AppData\\Local\\Temp";process.env["TERM_PROGRAM"] = "vscode";process.env["TERM_PROGRAM_VERSION"] = "1.99.3";process.env["TMP"] = "C:\\Users\\bogda\\AppData\\Local\\Temp";process.env["USERDOMAIN"] = "BODO";process.env["USERDOMAIN_ROAMINGPROFILE"] = "BODO";process.env["USERNAME"] = "bogda";process.env["USERPROFILE"] = "C:\\Users\\bogda";process.env["VSCODE_INJECTION"] = "1";process.env["windir"] = "C:\\WINDOWS";
-// Import Firebase and Dropbox SDK
 const { messaging } = require("firebase-admin");
 const { db } = require("./firebase");
-const { Dropbox } = require('dropbox');
 
-// Environment variables for Eventix (unchanged)
 const clientId = process.env.EVENTIX_CLIENT_ID;
 const clientSecret = process.env.EVENTIX_CLIENT_SECRET;
 const code = process.env.EVENTIX_CODE_KEY;
 const companyId = process.env.EVENTIX_COMPANY_ID;
 
-// -- Dropbox OAuth Environment Variables --
-// Instead of a static token, we expect to use the full OAuth flow.
-// Make sure you set these in your environment:
-// - DROPBOX_CLIENT_ID
-// - DROPBOX_CLIENT_SECRET
-// - DROPBOX_REDIRECT_URI
-//
-// (If you previously used DROPBOX_ACCESS_TOKEN for testing, you can remove it.)
-//
-// For convenience, if you wish to keep a testing token fallback you can,
-// but the full flow is handled below.
-const staticDropboxToken = process.env.DROPBOX_ACCESS_TOKEN || null;
-
-// -----------------------------------------------------------------
-// HELPER FUNCTIONS
-// -----------------------------------------------------------------
-
-// CORS headers helper function
-function getCorsHeaders(origin) {
-    return {
-        'Access-Control-Allow-Origin': origin || '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Accept, Origin, Authorization',
-        'Access-Control-Allow-Methods': 'GET, PUT, POST, OPTIONS',
-        'Access-Control-Max-Age': '86400',
-        'Content-Type': 'application/json'
-    };
-}
-
-// -----------------------------------------------------------------
-// DROPBOX OAUTH FLOW FUNCTIONS
-// -----------------------------------------------------------------
-
-// 1. Build the Dropbox authorization URL
-//    Redirect your user to this URL so they can authorize your app.
-// function getDropboxAuthUrl() {
-//     const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
-//     const redirectUri = process.env.DROPBOX_REDIRECT_URI; // e.g., "https://your-domain.com/dropbox-auth-callback"
-//     const authUrl = `https://www.dropbox.com/oauth2/authorize?response_type=code&client_id=${dropboxClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&token_access_type=offline`;
-//     return authUrl;
-// }
-
-// 2. Handle Dropbox callback: Exchange the authorization code for tokens
-//    This endpoint should be called by Dropbox via the redirect URI after the user authorizes.
-// async function handleDropboxAuthCallback(authCode) {
-//     const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
-//     const dropboxClientSecret = process.env.DROPBOX_CLIENT_SECRET;
-//     const redirectUri = process.env.DROPBOX_REDIRECT_URI;
-//     const tokenUrl = "https://api.dropbox.com/oauth2/token";
-
-//     const params = new URLSearchParams();
-//     params.append("code", authCode);
-//     params.append("grant_type", "authorization_code");
-//     params.append("client_id", dropboxClientId);
-//     params.append("client_secret", dropboxClientSecret);
-//     params.append("redirect_uri", redirectUri);
-
-//     const response = await fetch(tokenUrl, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//         body: params.toString()
-//     });
-//     const tokenData = await response.json();
-
-//     // Save tokenData in Firestore – here we use a fixed document ID "appToken" in the "dropboxTokens" collection.
-//     await db.collection("dropboxTokens").doc("appToken").set({
-//         access_token: tokenData.access_token,
-//         refresh_token: tokenData.refresh_token,
-//         // Save the expiry time (current time + expires_in ms)
-//         expiryTime: Date.now() + (tokenData.expires_in * 1000)
-//     });
-//     return tokenData;
-// }
-
-// 3. Refresh the Dropbox access token using the refresh token
-async function refreshDropboxAccessToken(refreshToken) {
-    const dropboxClientId = process.env.DROPBOX_CLIENT_ID;
-    const dropboxClientSecret = process.env.DROPBOX_CLIENT_SECRET;
-    const tokenUrl = "https://api.dropbox.com/oauth2/token";
-
-    const params = new URLSearchParams();
-    params.append("refresh_token", refreshToken);
-    params.append("grant_type", "refresh_token");
-    params.append("client_id", dropboxClientId);
-    params.append("client_secret", dropboxClientSecret);
-
-    const response = await fetch(tokenUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params.toString()
-    });
-    const data = await response.json();
-    return data;
-}
-
-// 4. Get a valid Dropbox client by checking token expiry and refreshing if necessary
-async function getValidDropboxClient() {
-    // Try to retrieve token data from the Firestore collection "dropboxTokens"
-    const tokenDoc = await db.collection("dropboxTokens").doc("appToken").get();
-    if (!tokenDoc.exists) {
-        // If not found and a static token is set from env (testing mode), use that.
-        if (staticDropboxToken) {
-            return new Dropbox({ accessToken: staticDropboxToken });
-        }
-        throw new Error("Dropbox token not configured");
-    }
-    let tokenData = tokenDoc.data();
-
-    // Check expiry (assume expiryTime is stored in milliseconds)
-    if (Date.now() >= tokenData.expiryTime) {
-        // Token expired; refresh it using the stored refresh token
-        const newTokenData = await refreshDropboxAccessToken(tokenData.refresh_token);
-        tokenData.access_token = newTokenData.access_token;
-        tokenData.expiryTime = Date.now() + (newTokenData.expires_in * 1000);
-        // Update Firestore with the new access token and expiryTime
-        await db.collection("dropboxTokens").doc("appToken").update({
-            access_token: tokenData.access_token,
-            expiryTime: tokenData.expiryTime,
-        });
-    }
-
-    // Return a new Dropbox client using the valid access token
-    return new Dropbox({ accessToken: tokenData.access_token });
-}
-
-// -----------------------------------------------------------------
-// EXISTING FUNCTIONS (DROPBOX & EVENTIX INTEGRATIONS)
-// -----------------------------------------------------------------
-
-async function generateCouponCodeDropbox(currentUserData, currentUser, itemId) {
-    try {
-        const filePath = '/discount_codes.json';
-        // Instead of using a static token, get a valid Dropbox client
-        const dbx = await getValidDropboxClient();
-
-        // Retrieve subscription and event name (we use itemId as event name)
-        let currentUserSubscriptionName = currentUserData.payload.subscriptionName;
-        const eventName = itemId.toLowerCase();
-
-        if (!currentUserSubscriptionName || !eventName) {
-            return {
-                statusCode: 404,
-                body: JSON.stringify({ error: 'The user does not have an active subscription.' })
-            };
-        }
-
-        // Download discount codes file from Dropbox
-        const downloadResponse = await dbx.filesDownload({ path: filePath });
-        const fileContent = downloadResponse.result.fileBinary.toString('utf8');
-        let discountData = JSON.parse(fileContent);
-
-        // Get the list of codes for this event from the new JSON structure
-        const codesList = discountData.codes[eventName];
-        if (!codesList || !Array.isArray(codesList)) {
-            return {
-                statusCode: 404,
-                body: JSON.stringify({ error: `No codes available for event: ${eventName}` })
-            };
-        }
-
-        // Look for the first available discount code for the matching tier
-        let availableCode = codesList.find(item =>
-            item.status === "available" &&
-            item.tier.toLowerCase() === currentUserSubscriptionName.toLowerCase()
-        );
-        if (!availableCode) {
-            return {
-                statusCode: 404,
-                body: JSON.stringify({ error: 'No available discount codes.' })
-            };
-        }
-
-        // Mark the found code as used
-        availableCode.status = "used";
-        const updatedContent = JSON.stringify(discountData, null, 2);
-
-        // Get current revision from download response
-        const rev = downloadResponse.result.rev;
-
-        // Upload the updated file back to Dropbox in update mode
-        await dbx.filesUpload({
-            path: filePath,
-            contents: updatedContent,
-            mode: { ".tag": "update", update: rev }
-        });
-
-        // Update the user record in Firestore
-        const id = currentUser[0].id;
-        currentUser[0].eventListDiscounted.push(itemId);
-        const updateObj = {
-            generatedCouponCode: true,
-            eventListDiscounted: currentUser[0].eventListDiscounted
-        };
-        if (id && updateObj) {
-            await db.collection("users").doc(id).update(updateObj);
-        }
-
-        // Return the discount code
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ code: availableCode.code })
-        };
-    } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message, details: error.error_summary || error })
-        };
-    }
-}
-
 async function generateCouponCode(couponId, eventixToken, generatedCode, currentUser, itemId) {
     try {
         let accessTokenId = eventixToken[0].accessToken;
 
-        // Prepare the request options for Eventix API
+        // Prepare the request options
         const url = `https://api.eventix.io/coupon/${couponId}/codes`;
         const options = {
             method: "PUT",
@@ -247,13 +34,13 @@ async function generateCouponCode(couponId, eventixToken, generatedCode, current
         const response = await fetch(url, options);
         const data = await response.json();
 
-        // Update user record in Firestore
         const id = currentUser[0].id;
         currentUser[0].eventListDiscounted.push(itemId);
         const updateObj = {
             generatedCouponCode: true,
             eventListDiscounted: currentUser[0].eventListDiscounted
         };
+
         if (id && updateObj && data) {
             await db.collection("users").doc(id).update(updateObj);
         }
@@ -264,6 +51,7 @@ async function generateCouponCode(couponId, eventixToken, generatedCode, current
         };
 
     } catch (error) {
+        // Handle unexpected errors
         return {
             statusCode: 500,
             body: JSON.stringify({ error: error.message }),
@@ -274,21 +62,24 @@ async function generateCouponCode(couponId, eventixToken, generatedCode, current
 async function generateAccessToken() {
     try {
         const options = {
-            method: "POST",
-            headers: {
+            "method": "POST",
+            "headers": {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
+            "body": JSON.stringify({
                 grant_type: "authorization_code",
-                client_id: clientId,
+                client_id: clientId, // Use environment variables for sensitive data
                 client_secret: clientSecret,
                 redirect_uri: "https://www.google.nl/", // Replace with your actual redirect URI
                 code: code
             })
         };
 
+        // Make the API request
         const response = await fetch("https://auth.openticket.tech/tokens", options);
+        // Parse the API response
         const responseData = await response.json();
+
         return responseData;
     }
     catch (error) {
@@ -305,13 +96,14 @@ async function refreshAccessToken(eventixToken) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                client_id: clientId,
+                client_id: clientId, // Use environment variables
                 client_secret: clientSecret,
                 refresh_token: eventixToken[0].refreshToken,
                 grant_type: "refresh_token"
             })
         };
 
+        // Make the API request
         const response = await fetch("https://auth.openticket.tech/tokens", options);
         const data = await response.json();
 
@@ -338,16 +130,36 @@ async function refreshAccessToken(eventixToken) {
     }
 }
 
+function getCorsHeaders(origin) {
+    return {
+        'Access-Control-Allow-Origin': origin || '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Accept, Origin, Authorization',
+        'Access-Control-Allow-Methods': 'GET, PUT, POST, OPTIONS',
+        'Access-Control-Max-Age': '86400',
+        'Content-Type': 'application/json'
+    }
+}
+
 async function validateToken(tokenData) {
     let tokenExpirationDate = tokenData[0].expiryDate._seconds * 1000; // Convert to ms
     let nowTimeStamp = Date.now();
-    return tokenExpirationDate > nowTimeStamp;
+
+    if (tokenExpirationDate > nowTimeStamp) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 async function validateUserDiscountCode(currentUserEmail, itemId) {
-    let currentUserDataSnapshot = await db.collection('users')
-        .where('emailAddress', '==', currentUserEmail).get();
-    let currentUserData = currentUserDataSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    let currentUserDataSnapshot = await db.collection('users').where('emailAddress', '==', currentUserEmail).get();
+    let currentUserData = currentUserDataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+    // if (currentUserData.length && currentUserData[0].generatedCouponCode) {
+    //     return false;
+    // } else if (currentUserData.length && !currentUserData[0].generatedCouponCode) {
+    //     return true;
+    // }
 
     if (currentUserData.length && currentUserData[0].eventListDiscounted.includes(itemId)) {
         return false;
@@ -357,92 +169,67 @@ async function validateUserDiscountCode(currentUserEmail, itemId) {
 }
 
 async function checkUserInDb(currentUser) {
-    let currentUserDataSnapshot = await db.collection('users')
-        .where('emailAddress', '==', currentUser.emailAddress.emailAddress).get();
-    let currentUserData = currentUserDataSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    let currentUserDataSnapshot = await db.collection('users').where('emailAddress', '==', currentUser.emailAddress.emailAddress).get();
+    let currentUserData = currentUserDataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     if (currentUserData.length) {
         return true;
     } else {
-        await db.collection('users').add({
+        let newUser = db.collection('users').add({
             emailAddress: currentUser.emailAddress.emailAddress,
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             generatedCouponCode: false,
             eventListDiscounted: []
-        });
+        })
         return false;
     }
 }
 
 function generateCode(subscriptionName) {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let couponCode = "SF-" + subscriptionName.toUpperCase() + '-';
+    let code = "SF-" + subscriptionName.toUpperCase() + '-';
+
     for (let i = 0; i < 10; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
-        couponCode += characters[randomIndex];
+        code += characters[randomIndex];
     }
-    return couponCode;
+    return code;
 }
-
-// -----------------------------------------------------------------
-// MAIN HANDLER FUNCTION
-// -----------------------------------------------------------------
-
 exports.handler = async (event) => {
     try {
-        // Handle CORS preflight requests
         if (event.httpMethod === 'OPTIONS') {
             return {
                 statusCode: 200,
                 headers: getCorsHeaders(event.headers.origin)
             };
         }
-
-        // Retrieve Eventix tokens from Firestore
+        //EVENTIX DATA
         let eventixTokensSnapshot = await db.collection('eventixTokens').get();
-        let eventixTokens = eventixTokensSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        let eventixTokens = eventixTokensSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-        // Parse user data from the request body
+        // // //USER DATA
         let currentUserData = JSON.parse(event.body);
-        let usersSnapshot = await db.collection('users')
-            .where('emailAddress', '==', currentUserData.payload.emailAddress.emailAddress)
-            .get();
-        let currentUser = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        let usersSnapshot = await db.collection('users').where('emailAddress', '==', currentUserData.payload.emailAddress.emailAddress).get();
+        let currentUser = usersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-        // Retrieve subscription data from Firestore
-        let currentUserSubscriptionSnapshot = await db.collection('subscriptions')
-            .where('subscriptionName', '==', currentUserData.payload.subscriptionName)
-            .get();
-        let currentUserSubscription = currentUserSubscriptionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        // //SUBSCRIPTION DATA
+        let currentUserSubscriptionSnapshot = await db.collection('subscriptions').where('subscriptionName', '==', currentUserData.payload.subscriptionName).get();
+        let currentUserSubscription = currentUserSubscriptionSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         let currentUserSubscriptionId = currentUserSubscription[0].subscriptionId;
         let currentUserSubscriptionName = currentUserSubscription[0].subscriptionName;
 
-        // Ensure the user exists in our DB
-        await checkUserInDb(currentUserData.payload);
+        let checkUserInDB = await checkUserInDb(currentUserData.payload);
+        let tokenIsValid = await validateToken(eventixTokens);
+        let validUserToGenerateCode = await validateUserDiscountCode(currentUserData.payload.emailAddress.emailAddress, currentUserData.payload.itemId);
 
-        // Validate if the user is allowed to generate a new coupon code
-        let validUserToGenerateCode = await validateUserDiscountCode(
-            currentUserData.payload.emailAddress.emailAddress,
-            currentUserData.payload.itemId
-        );
-
-        // -----------------------------------------------------------------
-        // Processing for Eventix Events
-        // -----------------------------------------------------------------
-        if (currentUserData.payload.isEventixEvent === 'True' || currentUserData.payload.isEventixEvent == null) {
-            // Here we check if the token is valid for Eventix and then call generateCouponCode accordingly.
-            let tokenIsValid = await validateToken(eventixTokens);
+        if (currentUserData.payload) {
             if (validUserToGenerateCode && tokenIsValid) {
-                let generatedCouponCode = generateCode(currentUserSubscriptionName);
-                let response = await generateCouponCode(
-                    currentUserSubscriptionId,
-                    eventixTokens,
-                    generatedCouponCode,
-                    currentUser,
-                    currentUserData.payload.itemId
-                );
-                if (response && response.statusCode === 200) {
+                let generatedCouponCode = generateCode(currentUserSubscriptionName)
+                let response = await generateCouponCode(currentUserSubscriptionId, eventixTokens, generatedCouponCode, currentUser, currentUserData.payload.itemId);
+
+                if (generateCouponCode && response.statusCode == 200) {
                     return {
                         statusCode: 200,
                         headers: getCorsHeaders(event.headers.origin),
@@ -450,19 +237,15 @@ exports.handler = async (event) => {
                             couponCode: generatedCouponCode,
                             message: 'Hey, here is your Discount Code!'
                         }),
-                    };
+                    }
                 }
+
             } else if (validUserToGenerateCode && !tokenIsValid) {
-                await refreshAccessToken(eventixTokens);
-                let generatedCouponCode = generateCode(currentUserSubscriptionName);
-                let response = await generateCouponCode(
-                    currentUserSubscriptionId,
-                    eventixTokens,
-                    generatedCouponCode,
-                    currentUser,
-                    currentUserData.payload.itemId
-                );
-                if (response && response.statusCode === 200) {
+                let refreshTokenResponse = await refreshAccessToken(eventixTokens);
+                let generatedCouponCode = generateCode(currentUserSubscriptionName)
+                let response = await generateCouponCode(currentUserSubscriptionId, eventixTokens, generatedCouponCode, currentUser, currentUserData.payload.itemId);
+
+                if (generateCouponCode && response.statusCode == 200) {
                     return {
                         statusCode: 200,
                         headers: getCorsHeaders(event.headers.origin),
@@ -470,9 +253,10 @@ exports.handler = async (event) => {
                             couponCode: generatedCouponCode,
                             message: 'Hey, here is your Discount Code!'
                         }),
-                    };
+                    }
                 }
             } else if (!validUserToGenerateCode) {
+                //display alert - user already generated coupon code
                 return {
                     statusCode: 200,
                     headers: getCorsHeaders(event.headers.origin),
@@ -480,53 +264,12 @@ exports.handler = async (event) => {
                         couponCode: '',
                         message: 'Sorry, you already generated a Discount Code!'
                     }),
-                };
-            }
-        }
-        // -----------------------------------------------------------------
-        // Processing for Non‑Eventix Events using Dropbox Integration
-        // -----------------------------------------------------------------
-        else {
-            // For non-Eventix events, use Dropbox integration.
-            // We first validate if the user is allowed to generate a coupon code.
-            if (validUserToGenerateCode) {
-                let response = await generateCouponCodeDropbox(
-                    currentUserData,
-                    currentUser,
-                    currentUserData.payload.itemId
-                );
-                if (response && response.statusCode === 200) {
-                    return {
-                        statusCode: 200,
-                        headers: getCorsHeaders(event.headers.origin),
-                        body: JSON.stringify({
-                            // The Dropbox function returns a coupon code in its JSON body.
-                            couponCode: JSON.parse(response.body).code,
-                            message: 'Hey, here is your Discount Code!'
-                        }),
-                    };
-                } else {
-                    return {
-                        statusCode: response.statusCode || 500,
-                        headers: getCorsHeaders(event.headers.origin),
-                        body: response.body || JSON.stringify({ error: 'An unknown error occurred.' })
-                    };
                 }
-            } else {
-                return {
-                    statusCode: 200,
-                    headers: getCorsHeaders(event.headers.origin),
-                    body: JSON.stringify({
-                        couponCode: '',
-                        message: 'Sorry, you already generated a Discount Code!'
-                    }),
-                };
             }
         }
     } catch (error) {
         return {
             statusCode: 500,
-            headers: getCorsHeaders(event.headers.origin),
             body: JSON.stringify({ error: error.message }),
         };
     }
