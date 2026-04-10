@@ -429,28 +429,34 @@ exports.handler = async (event) => {
         // -----------------------------------------------------------------
         // Processing for Eventix Events
         // -----------------------------------------------------------------
-        if (currentUserData.payload.isEventixEvent === 'True' || currentUserData.payload.isEventixEvent == null) {
-            // Here we check if the token is valid for Eventix and then call generateCouponCode accordingly.
-            let tokenIsValid = await validateToken(eventixTokens);
-            if (validUserToGenerateCode && tokenIsValid) {
-                let generatedCouponCode = generateCode(currentUserSubscriptionName);
-                let response = await generateCouponCode(
-                    currentUserSubscriptionId,
-                    eventixTokens,
-                    generatedCouponCode,
-                    currentUser,
-                    currentUserData.payload.itemId
-                );
-                if (response && response.statusCode === 200) {
-                    return {
-                        statusCode: 200,
-                        headers: getCorsHeaders(event.headers.origin),
-                        body: JSON.stringify({
-                            couponCode: generatedCouponCode,
-                            message: 'Hey, here is your Discount Code!'
-                        }),
-                    };
-                }
+const isEventixEvent = String(currentUserData.payload.isEventixEvent || '')
+    .trim()
+    .toLowerCase();
+
+if (isEventixEvent === 'true' || isEventixEvent === '') {
+    let tokenIsValid = await validateToken(eventixTokens);
+
+    if (validUserToGenerateCode && tokenIsValid) {
+        let generatedCouponCode = generateCode(currentUserSubscriptionName);
+
+        let response = await generateCouponCode(
+            currentUserSubscriptionId,
+            eventixTokens,
+            generatedCouponCode,
+            currentUser,
+            currentUserData.payload.itemId
+        );
+
+        if (response && response.statusCode === 200) {
+            return {
+                statusCode: 200,
+                headers: getCorsHeaders(event.headers.origin),
+                body: JSON.stringify({
+                    couponCode: generatedCouponCode,
+                    message: 'Hey, here is your Discount Code!'
+                }),
+            };
+        }
             } else if (validUserToGenerateCode && !tokenIsValid) {
                 await refreshAccessToken(eventixTokens);
                 let generatedCouponCode = generateCode(currentUserSubscriptionName);
